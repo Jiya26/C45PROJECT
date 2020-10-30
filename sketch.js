@@ -1,11 +1,11 @@
 var car,boy,carImg,boyImg,roadImg,carOpenImg;
 var red,yellow,green,signal,pole,poleImg;
 var timerYellow, timerGreen;
-var zebraCrossing;
+var zebraCrossingImg,zebraCrossing,timerZebraCrossing;
 var fineImg,fine;
 
 var isGreenLightON = true;
-
+var isZebraCrossingOn = true;
 
 function preload()
 {
@@ -16,7 +16,7 @@ function preload()
 	red=loadImage("images/traffic light/red light.png");
 	yellow=loadImage("images/traffic light/yellow light.png");
 	 green=loadImage("images/traffic light/green light.png");
-	zebraCrossing=loadImage("images/zebra crossing image.jpg");
+	zebraCrossingImg=loadImage("images/zebra crossing image .jpg");
 	fineImg = loadImage("images/police taking fine.png");
 	poleImg=loadImage("images/pole.png");
 }
@@ -27,11 +27,13 @@ function setup() {
 	boy = createSprite(500,350,50,50);
 	fine = createSprite(width/2-400,car.y+100,20,20);
 	pole = createSprite(width/2+450,200,50,50);
+	zebraCrossing = createSprite(200,500,70,70);
 	car.addImage("carcloseImg",carImg);
 	boy.addImage("boystandImg",boyImg);
 	car.addImage("caropenImg",carOpenImg);	
 	fine.addImage("fineimg",fineImg);
 	pole.addImage("poleimg",poleImg);
+	zebraCrossing.addImage("zebracrossing img",zebraCrossingImg);
 
 	fine.visible = false;
 	pole.visible = false;
@@ -92,6 +94,7 @@ camera.position.x = width/2;
 camera.position.y = car.y;
 
 trafficLight();
+zebracrossing();
 
   drawSprites();
 }
@@ -105,7 +108,6 @@ function trafficLight(){
 		isGreenLightON = false; 
 		timerYellow = 100;
 	}
-	console.log(timerYellow);
 	if(timerYellow !== undefined) {
 		timerYellow--;
 		if(timerYellow === 0) {
@@ -137,4 +139,11 @@ function checkSignal() {
 	}
 }
 	
-
+function zebracrossing(){
+	if(frameCount%500===0){
+		timerZebraCrossing = 1000
+	}else{
+		console.log(isZebraCrossingOn)
+		isZebraCrossingOn=false;
+	}
+}
